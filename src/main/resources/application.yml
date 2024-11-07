@@ -1,0 +1,31 @@
+server:
+  port: 8084
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5433/webfluxsecurity
+    username: postgres
+    password: 1111
+
+
+  r2dbc:
+    url: r2dbc:pool:postgres://localhost:5433/webfluxsecurity
+    username: postgres
+    password: 1111
+
+
+  jpa:
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+
+jwt:
+  password:
+    encoder:
+      secret: mjpwjU5YUF3i7NAfvq40ShwLJXubpD85
+      iteration: 64
+      keyLength: 256
+  secret: 0fyvzbxwk3fk725h8hmrjr0ycynfdw8nd8gdwnwi2qjmuu4zp9j96wr8x5jifed4rxf4nc
+  expiration: 3600
+  issuer: drahunovskiy
