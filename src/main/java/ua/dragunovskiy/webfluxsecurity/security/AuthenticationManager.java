@@ -15,6 +15,7 @@ public class AuthenticationManager implements ReactiveAuthenticationManager {
 
     private final UserService userService;
 
+    // it returns authentication object for specify user by id
     @Override
     public Mono<Authentication> authenticate(Authentication authentication) {
         CustomPrincipal principal = (CustomPrincipal) authentication.getPrincipal();

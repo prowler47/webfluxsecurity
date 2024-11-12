@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 
 import java.util.Date;
 
+// additional information with token. it will return when login success
+
 @Data
 @Builder(toBuilder = true)
 @NoArgsConstructor

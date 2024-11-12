@@ -9,7 +9,6 @@ import ua.dragunovskiy.webfluxsecurity.dto.AuthResponseDto;
 import ua.dragunovskiy.webfluxsecurity.dto.UserDto;
 import ua.dragunovskiy.webfluxsecurity.entity.UserEntity;
 import ua.dragunovskiy.webfluxsecurity.mapper.UserMapper;
-import ua.dragunovskiy.webfluxsecurity.repository.UserRepository;
 import ua.dragunovskiy.webfluxsecurity.security.CustomPrincipal;
 import ua.dragunovskiy.webfluxsecurity.security.SecurityService;
 import ua.dragunovskiy.webfluxsecurity.service.UserService;

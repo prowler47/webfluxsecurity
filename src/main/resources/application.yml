@@ -2,10 +2,10 @@ server:
   port: 8084
 
 spring:
-  datasource:
-    url: jdbc:postgresql://localhost:5433/webfluxsecurity
-    username: postgres
-    password: 1111
+#  datasource:
+#    url: jdbc:postgresql://localhost:5433/webfluxsecurity
+#    username: postgres
+#    password: 1111
 
 
   r2dbc:

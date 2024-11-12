@@ -2,11 +2,11 @@ package ua.dragunovskiy.webfluxsecurity.security;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.security.Keys;
 import reactor.core.publisher.Mono;
-import ua.dragunovskiy.webfluxsecurity.exception.AuthException;
 import ua.dragunovskiy.webfluxsecurity.exception.UnauthorizedException;
 
-import java.util.Base64;
+import javax.crypto.SecretKey;
 import java.util.Date;
 
 public class JwtHandler {
@@ -30,23 +30,26 @@ public class JwtHandler {
         return new VerificationResult(claims, token);
     }
 
-    // different way with build(). in lesson it was without build()
+    // case with deprecated methods:
 //    private Claims getClaimsFromToken(String token) {
 //        return Jwts.parser()
-//                .setSigningKey(Base64.getEncoder().encodeToString(secret.getBytes())
+//                .setSigningKey(Base64.getEncoder().encodeToString(secret.getBytes()))
+//                .build()
 //                .parseClaimsJws(token)
 //                .getBody();
 //    }
 
     private Claims getClaimsFromToken(String token) {
+        SecretKey key = Keys.hmacShaKeyFor(secret.getBytes());
         return Jwts.parser()
-                .setSigningKey(Base64.getEncoder().encodeToString(secret.getBytes()))
+                .verifyWith(key)
                 .build()
-                .parseClaimsJws(token)
-                .getBody();
+                .parseSignedClaims(token)
+                .getPayload();
     }
+    
 
-
+    // This object consist claims and token
     public static class VerificationResult {
         public Claims claims;
         public String token;

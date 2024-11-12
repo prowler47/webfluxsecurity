@@ -7,8 +7,12 @@ import ua.dragunovskiy.webfluxsecurity.entity.UserEntity;
 
 @Mapper(componentModel = "spring")
 public interface UserMapper {
+
+    // take USerEntity and return UserDto
     UserDto map(UserEntity userEntity);
 
+
+    // take UserDto and return UserEntity
     @InheritInverseConfiguration
     UserEntity map(UserDto dto);
 }

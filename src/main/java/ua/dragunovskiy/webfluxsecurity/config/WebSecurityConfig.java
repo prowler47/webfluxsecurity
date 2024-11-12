@@ -30,28 +30,26 @@ public class WebSecurityConfig {
     @Bean
     public SecurityWebFilterChain securityWebFilterChain(ServerHttpSecurity http, AuthenticationManager authenticationManager) {
         return http
-                .csrf().disable()
-                .authorizeExchange()
-                .pathMatchers(HttpMethod.OPTIONS)
-                .permitAll()
-                .pathMatchers(publicRoutes)
-                .permitAll()
-                .anyExchange()
-                .authenticated()
-                .and()
-                .exceptionHandling()
-                .authenticationEntryPoint((swe, e) -> {
+                .csrf(ServerHttpSecurity.CsrfSpec::disable)
+                .authorizeExchange(authorizeExchangeSpec ->
+                        authorizeExchangeSpec
+                                .pathMatchers(HttpMethod.OPTIONS)
+                                .permitAll()
+                                .pathMatchers(publicRoutes)
+                                .permitAll()
+                                .anyExchange()
+                                .authenticated())
+                .exceptionHandling(exceptionHandlingSpec ->
+                        exceptionHandlingSpec.authenticationEntryPoint((swe, e) -> {
                     log.error("IN securityWebFilterChain - unauthorized error: {}", e.getMessage());
                     return Mono.fromRunnable(() -> swe.getResponse().setStatusCode(HttpStatus.UNAUTHORIZED));
                 })
-                .accessDeniedHandler((swe, e) -> {
+                                .accessDeniedHandler((swe, e) -> {
                     log.error("IN securityWebFilterChain - access denied: {}", e.getMessage());
                     return Mono.fromRunnable(() -> swe.getResponse().setStatusCode(HttpStatus.FORBIDDEN));
-                })
-                .and()
+                }))
                 .addFilterAt(bearerAuthenticationFilter(authenticationManager), SecurityWebFiltersOrder.AUTHENTICATION)
                 .build();
-
     }
 
     private AuthenticationWebFilter bearerAuthenticationFilter(AuthenticationManager authenticationManager) {

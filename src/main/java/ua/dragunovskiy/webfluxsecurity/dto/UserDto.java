@@ -1,15 +1,16 @@
 package ua.dragunovskiy.webfluxsecurity.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.databind.PropertyNamingStrategy;
+import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import lombok.Data;
 import ua.dragunovskiy.webfluxsecurity.entity.UserRole;
 
 import java.time.LocalDateTime;
 
+// this dto object return when user register success (password is hidden)
 @Data
-@JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
+@JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class UserDto {
     private Long id;
     private String username;
